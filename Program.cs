@@ -56,7 +56,7 @@ namespace WebSocketListener
 
                 while (socket.State == WebSocketState.Open)
                 {
-                    var buffer = new byte[1024];
+                    var buffer = new byte[4096];
                     var segment = new ArraySegment<byte>(buffer);
 
                     WebSocketReceiveResult result;
@@ -74,7 +74,7 @@ namespace WebSocketListener
                     {
                         case WebSocketMessageType.Text:
                             var text = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                            Console.Write(text);
+                            Console.WriteLine(text);
                             break;
 
                         case WebSocketMessageType.Binary:
