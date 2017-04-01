@@ -42,7 +42,15 @@ namespace WebSocketListener
                     cts.Cancel();
                 };
 
-                return MainAsync(uri, cts.Token).GetAwaiter().GetResult();
+                try
+                {
+                    return MainAsync(uri, cts.Token).GetAwaiter().GetResult();
+                }
+                catch (WebSocketException ex)
+                {
+                    Console.Error.WriteLine($"WebSocketException: {ex.Message}");
+                    return -3;
+                }
             }
         }
 
